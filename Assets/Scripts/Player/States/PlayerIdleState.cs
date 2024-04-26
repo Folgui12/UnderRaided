@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerIdleState<T> : State<T>
+{
+    private PlayerModel _model;
+    private PlayerView _view;
+
+    public PlayerIdleState(PlayerModel model, PlayerView view)
+    {
+        _model = model;
+        _view = view;
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        _view.anim.SetBool("Walking", false);
+    }
+
+
+    // Update is called once per frame
+    public override void Execute()
+    {
+        _model.Move(Vector3.zero);
+    }
+}
