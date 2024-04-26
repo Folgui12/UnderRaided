@@ -83,17 +83,10 @@ public class BaseEnemyController : MonoBehaviour
 
         //Question
 
-        //QuestionNode qTreeInRange = new QuestionNode(QuestionTreeOnTheWay, attack, chase);
-
-        /*if(gameObject.CompareTag("Golem"))
-            qPlayerOnSight = new QuestionNode(QuestionOnSight, qAttackRange, qTreeInRange);
-
-        else if(gameObject.CompareTag("Satiro"))
-            qPlayerOnSight = new QuestionNode(QuestionOnSight, qAttackRange, idle);*/
-        
         QuestionNode qAttackRange = new QuestionNode(QuestionAttackRange, attack, chase);
         QuestionNode qLos = new QuestionNode(QuestionLos, qAttackRange, patrol);
-    
+            
+
         _root = qLos;
     }
     bool QuestionAttackRange()
@@ -101,26 +94,11 @@ public class BaseEnemyController : MonoBehaviour
         return _los.CheckAttackRange(_model.playerPosition);
     }
 
-    bool QuestionAngle()
-    {
-        return _los.CheckAngle(_model.currentObjective);
-    }
-
     bool QuestionLos()
     {
         return _los.CheckViewRange(_model.playerPosition) 
             && _los.CheckAngle(_model.playerPosition) 
             && _los.CheckView(_model.playerPosition);
-    }
-
-    bool QuestionOnSight()
-    {
-        return _los.CheckView(_model.currentObjective);
-    }
-
-    bool QuestionTreeOnTheWay()
-    {
-        return _los.CheckAttackRange(_model.playerPosition);
     }
 
     private void Update()

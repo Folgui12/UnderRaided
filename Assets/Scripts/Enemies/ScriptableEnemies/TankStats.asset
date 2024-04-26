@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TankStats
   m_EditorClassIdentifier: 
   <life>k__BackingField: 10
-  <travelSpeed>k__BackingField: 3
+  <travelSpeed>k__BackingField: 2
   <attackSpeed>k__BackingField: 3
   <attackRange>k__BackingField: 2
   <viewRange>k__BackingField: 12.5

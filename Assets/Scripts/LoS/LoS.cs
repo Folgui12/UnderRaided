@@ -49,15 +49,6 @@ public class LoS : MonoBehaviour, ILoS
         return !Physics.Raycast(Origin, dirToTarget, distance, maskObs);
     }
 
-    public bool CheckForTrees(Transform target, LayerMask maskObs)
-    {
-        Vector3 dirToTarget = target.position - Origin;
-        float distance = dirToTarget.magnitude;
-        RaycastHit hit;
-
-        return Physics.Raycast(Origin, dirToTarget, out hit, distance, maskObs) && CheckAttackRange(hit.transform);
-    }
-
     public Vector3 Origin => transform.position;
     public Vector3 Forward => transform.forward;
 }

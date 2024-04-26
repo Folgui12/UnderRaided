@@ -65,18 +65,17 @@ public class BaseEnemyModel : MonoBehaviour
     public void Attack()
     {
         _view.ActiveAttack();
-        Debug.Log("Atancando");
     }
 
-    private void ActiveRightArm()
+    /*public void ActiveRightArm()
     {
         rightArm.enabled = true;
     }
 
-    private void DeactiveRightArm()
+    public void DeactiveRightArm()
     {
         rightArm.enabled = false;
-    }
+    }*/
 
     void OnTriggerEnter(Collider other)
     {

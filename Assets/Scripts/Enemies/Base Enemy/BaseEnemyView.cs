@@ -47,4 +47,12 @@ public class BaseEnemyView : MonoBehaviour
     {
         audio.PlayOneShot(audio.clip);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Tree") && gameObject.CompareTag("Golem"))
+        {
+            Destroy(collision.gameObject);
+        }
+    }
 }
