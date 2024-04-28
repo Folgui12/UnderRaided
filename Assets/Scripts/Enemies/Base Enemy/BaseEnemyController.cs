@@ -86,7 +86,6 @@ public class BaseEnemyController : MonoBehaviour
         QuestionNode qAttackRange = new QuestionNode(QuestionAttackRange, attack, chase);
         QuestionNode qLos = new QuestionNode(QuestionLos, qAttackRange, patrol);
             
-
         _root = qLos;
     }
     bool QuestionAttackRange()
@@ -105,7 +104,6 @@ public class BaseEnemyController : MonoBehaviour
     {
         _fsm.OnUpdate();
         _root.Execute();
-        //_model.currentObjective = _model.CalculateDirection();
     }
     
 #if UNITY_EDITOR

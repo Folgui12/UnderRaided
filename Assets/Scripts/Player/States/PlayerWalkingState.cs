@@ -24,18 +24,15 @@ public class PlayerWalkingState<T> : State<T>
     public override void Execute()
     {
         if(Input.GetKey(KeyCode.W))
-        {
             _model.Move((_model.transform.forward * Time.deltaTime).normalized);
-        }
+
+        if(Input.GetKey(KeyCode.S))
+            _model.Move((-_model.transform.forward * Time.deltaTime).normalized);
 
         if(Input.GetKey(KeyCode.A))
-        {
             _view.LookDir(-_controller.turnSpeed);
-        }
 
         if(Input.GetKey(KeyCode.D))
-        {
             _view.LookDir(_controller.turnSpeed);
-        }
     }
 }

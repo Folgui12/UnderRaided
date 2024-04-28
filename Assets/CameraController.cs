@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform target;
+    [SerializeField] private Transform player;
+    [SerializeField] private Vector3 offSet;
 
-    public float pLerp = .2f;
-    public float rLerp = .1f;
+    [SerializeField] private float sensitivity;
+
+    private float x;
+    private float y;    
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position, target.position, pLerp);
-        transform.rotation = Quaternion.Lerp(transform.rotation, target.rotation, rLerp);
+        x += Input.GetAxis("Mouse X") * sensitivity;
+        y += Input.GetAxis("Mouse Y") * -sensitivity;
+
+        transform.localEulerAngles = new Vector3(y, x, 0);
+        //transform.position = player.position + offSet;
+        player.transform.localEulerAngles = new Vector3(0, x, 0);
+        
     }
 }
