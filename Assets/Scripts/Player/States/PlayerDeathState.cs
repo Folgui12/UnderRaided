@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerDeathState<T> : State<T>
 {
+    private PlayerModel _model;
 
-
-    public override void Execute()
+    public PlayerDeathState(PlayerModel model)
     {
-        base.Execute();
+        _model = model;
+    }
 
-        //Insertar Cambio de escena o respawn
+    public override void Enter()
+    {
+        base.Enter();
+
+        _model.RIP();
     }
 }

@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         var idle = new PlayerIdleState<PlayerStatesEnum>(_playerModel, _playerView);
         var walk = new PlayerWalkingState<PlayerStatesEnum>(_playerModel, _playerView, _playerController);
-        var death = new PlayerDeathState<PlayerStatesEnum>();
+        var death = new PlayerDeathState<PlayerStatesEnum>(_playerModel);
 
         idle.AddTransition(PlayerStatesEnum.Dead, death);
         idle.AddTransition(PlayerStatesEnum.Walk, walk);
@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     void InitializedTree()
     {
         //Actions
-        //var idle = new ActionNode(() => _fsm.Transition(StatesEnum.Idle));
         var idle = new ActionNode(() => _fsm.Transition(PlayerStatesEnum.Idle));
         var walk = new ActionNode(() => _fsm.Transition(PlayerStatesEnum.Walk));
         var death = new ActionNode(() => _fsm.Transition(PlayerStatesEnum.Dead));

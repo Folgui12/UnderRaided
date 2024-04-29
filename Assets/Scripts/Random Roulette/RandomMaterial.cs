@@ -21,12 +21,6 @@ public class RandomMaterial : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     public RarityEnum GetRandomMaterial()
     {
         return MyRandoms.Roulette(_pesoDeRarezas);

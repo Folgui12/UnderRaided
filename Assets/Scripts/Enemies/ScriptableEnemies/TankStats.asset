@@ -15,6 +15,6 @@ MonoBehaviour:
   <life>k__BackingField: 10
   <travelSpeed>k__BackingField: 2
   <attackSpeed>k__BackingField: 3
-  <attackRange>k__BackingField: 2
+  <attackRange>k__BackingField: 3
   <viewRange>k__BackingField: 12.5
   <viewAngle>k__BackingField: 156

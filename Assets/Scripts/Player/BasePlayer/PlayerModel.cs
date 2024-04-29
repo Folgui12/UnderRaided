@@ -30,9 +30,9 @@ public class PlayerModel : MonoBehaviour
         _rb.velocity = dir;
     }
 
-    public void TakeHit()
+    public void RIP()
     {
-        life--;
+        SceneManager.LoadScene("LoseScreen");
     }
 
     void OnTriggerEnter(Collider other)
