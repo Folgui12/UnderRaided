@@ -17,11 +17,15 @@ public class EnemyPatrolState<T> : State<T>
         _obs = obs;
     }
 
+
+    // Comienzo la animación de caminar y reseteo el tiempo de Idle para la siguiente ocasión
     public override void Enter()
     {
         base.Enter();
 
         _view.StartWalking();
+        
+        _model.ResetIdleTimer();
     }
 
 

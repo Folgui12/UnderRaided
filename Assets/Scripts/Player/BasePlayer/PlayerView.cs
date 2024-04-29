@@ -5,14 +5,18 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     public Animator anim;
-    private Rigidbody _rb;
+    private RandomMaterial randomMaterial;
 
+    void Awake()
+    {
+        randomMaterial = GetComponentInChildren<RandomMaterial>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
-        _rb = GetComponent<Rigidbody>();
+        randomMaterial.SetRandomMaterial();
     }
 
     // Update is called once per frame
@@ -24,10 +28,5 @@ public class PlayerView : MonoBehaviour
     public void LookDir(float vel)
     {
         transform.Rotate(0, vel * Time.deltaTime, 0);
-    }
-
-    public void Death()
-    {
-        
     }
 }

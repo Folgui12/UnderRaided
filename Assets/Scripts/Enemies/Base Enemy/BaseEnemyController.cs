@@ -38,6 +38,7 @@ public class BaseEnemyController : MonoBehaviour
         InitializeFSM();
     }
 
+    // Inicializo la máquina de estados
     void InitializeFSM()
     {
         var idle = new EnemyIdleState<StatesEnum>(_model, _view);
@@ -62,17 +63,22 @@ public class BaseEnemyController : MonoBehaviour
 
         _fsm = new FSM<StatesEnum>(idle);
     }
+
+    // Inicializo la forma en la que los enemigos se moverán
     void InitializeSteerings()
     {
         var seek = new Seek(_model,_model.transform, _model.currentObjective);
-        var flee = new Flee(_model.transform, _model.currentObjective);
+
+        /*var flee = new Flee(_model.transform, _model.currentObjective);
         var pursuit = new Pursuit(_model.transform, _model.currentObjective.GetComponent<Rigidbody>(), timePrediction);
-        var evade = new Evade(_model.transform, _model.currentObjective.GetComponent<Rigidbody>(), timePrediction);
+        var evade = new Evade(_model.transform, _model.currentObjective.GetComponent<Rigidbody>(), timePrediction);*/
 
         _steering = seek;
 
         _obstacleAvoidance = new ObstacleAvoidance(_model.transform, angle, radius, maskObs);
     }
+
+    // Inicializo todo el arbol
     void InitializedTree()
     {
         //Actions
@@ -82,17 +88,38 @@ public class BaseEnemyController : MonoBehaviour
         ActionNode patrol = new ActionNode(() => _fsm.Transition(StatesEnum.Patrol));
 
         //Question
-
         QuestionNode qAttackRange = new QuestionNode(QuestionAttackRange, attack, chase);
+
         QuestionNode qLos = new QuestionNode(QuestionLos, qAttackRange, patrol);
+        
+        QuestionNode qIdle = new QuestionNode(QuestionWithIdleTime, idle, patrol);
+
+        QuestionNode qPatrol = new QuestionNode(QuestionCanPatrol, qLos, qIdle);
             
-        _root = qLos;
+        _root = qPatrol;
     }
+
+
+    // Pregunto si puede patrullar, teniendo en cuenta el sentido en el que debería hacerlo, y si no está en ningun extremo del mismo
+    bool QuestionCanPatrol()
+    {
+        return _model.inOrder && !_model.onLastPatrolPoint() || !_model.inOrder && !_model.onFirstPatrolPoint();
+    }
+
+
+    // Pregunto si el enemigo todavia tiene tiempo para quedarse en estado de Idle
+    bool QuestionWithIdleTime()
+    {
+        return !_model.outOfIdleTime();
+    }
+
+    // Pregunto si el player se encuentra en rango de ataque
     bool QuestionAttackRange()
     {
         return _los.CheckAttackRange(_model.playerPosition);
     }
 
+    // Pregunto si el player está a la vista
     bool QuestionLos()
     {
         return _los.CheckViewRange(_model.playerPosition) 
@@ -113,4 +140,5 @@ public class BaseEnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(_los.Origin, radius);
     }
 #endif
+
 }

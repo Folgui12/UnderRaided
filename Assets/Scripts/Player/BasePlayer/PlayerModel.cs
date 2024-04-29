@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerModel : MonoBehaviour
 {
@@ -32,5 +33,13 @@ public class PlayerModel : MonoBehaviour
     public void TakeHit()
     {
         life--;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("FinishLine"))
+        {
+            SceneManager.LoadScene("WinScreen");
+        }
     }
 }

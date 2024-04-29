@@ -1872,6 +1872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 11400000, guid: 6371e44d64973af48afdd666736c06ab, type: 2}
   rightArm: {fileID: 1078881768857876101}
+  idleTimerSetter: 5
   patrolPoints:
   - {fileID: 1703240461178813068}
   - {fileID: 5685345037678461626}
@@ -1882,6 +1883,10 @@ MonoBehaviour:
   targetPoint: 0
   currentObjective: {fileID: 0}
   playerPosition: {fileID: 835086575263020846, guid: c801f6a0774d17a4392f52b496770e12, type: 3}
+  idleTimer: 0
+  inOrder: 0
+  onLastPoint: 0
+  onFirstPoint: 0
 --- !u!114 &7187137382891972786
 MonoBehaviour:
   m_ObjectHideFlags: 0

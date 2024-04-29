@@ -9,6 +9,7 @@ TagManager:
   - Golem
   - Satiro
   - Temple
+  - FinishLine
   layers:
   - Default
   - TransparentFX
