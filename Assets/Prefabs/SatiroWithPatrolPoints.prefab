@@ -1187,7 +1187,7 @@ MonoBehaviour:
   radius: 3
   maskObs:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   _los: {fileID: 4994997232318558707}
 --- !u!114 &2878958450459283795
 MonoBehaviour:
@@ -1245,7 +1245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maskObs:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   objectInFront: {fileID: 0}
 --- !u!82 &532921224397579075
 AudioSource:

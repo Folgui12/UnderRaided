@@ -1852,7 +1852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   timePrediction: 0
-  angle: 25.95
+  angle: 156
   radius: 5
   maskObs:
     serializedVersion: 2

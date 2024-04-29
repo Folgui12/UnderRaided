@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class RandomMaterial : MonoBehaviour
@@ -9,24 +8,23 @@ public class RandomMaterial : MonoBehaviour
     public Material bodyMaterial;
     public List<Material> materiales = new List<Material>();
     Dictionary<RarityEnum, float> _pesoDeRarezas;
-    //Dictionary<RarityEnum, Material> _rarezaDeMateriales;
     private SkinnedMeshRenderer myMaterial;
 
     void Awake()
     {
         myMaterial = GetComponentInChildren<SkinnedMeshRenderer>();
+        _pesoDeRarezas = new Dictionary<RarityEnum, float>();
+
+        for (int i = 0; i < rarezaMateriales.Count; i++)
+        {
+            _pesoDeRarezas[rarezaMateriales[i].rarity] = rarezaMateriales[i].Weight;
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        _pesoDeRarezas = new Dictionary<RarityEnum, float>();
 
-        for(int i = 0; i < rarezaMateriales.Count; i++) 
-        {
-            _pesoDeRarezas[rarezaMateriales[i].rarity] = rarezaMateriales[i].Weight;
-        }
-        
     }
 
     public RarityEnum GetRandomMaterial()
