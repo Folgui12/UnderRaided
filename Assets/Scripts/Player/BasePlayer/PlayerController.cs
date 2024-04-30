@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         idle.AddTransition(PlayerStatesEnum.Walk, walk);
 
         walk.AddTransition(PlayerStatesEnum.Dead, death);
-        walk.AddTransition(PlayerStatesEnum.Idle, idle);
+        walk.AddTransition(PlayerStatesEnum.Idle, idle); 
 
         _fsm = new FSM<PlayerStatesEnum>(idle);
     }

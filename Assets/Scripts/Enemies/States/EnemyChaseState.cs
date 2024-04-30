@@ -25,7 +25,6 @@ public class EnemyChaseState<T> : State<T>
 
     public override void Execute()
     {
-
         var dir = _obs.GetDir(_model.CalculateDirectionToPlayer(), false).normalized;
 
         _model.Move(dir);

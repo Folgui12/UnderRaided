@@ -18,6 +18,7 @@ public class EnemyIdleState<T> : State<T>
     {
         base.Enter();
 
+        // Cambiamos de animación al idle
         _view.StayIdle();
     }
 
@@ -37,6 +38,7 @@ public class EnemyIdleState<T> : State<T>
     {
         base.Sleep();
 
+        // Activa todos los puntos de patrullaje nuevamente y cambia el sentido del recorrido
         _model.ActiveAllPatrolPoints();
         _model.inOrder = !_model.inOrder;
     }

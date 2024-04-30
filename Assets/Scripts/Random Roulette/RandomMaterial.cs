@@ -21,6 +21,7 @@ public class RandomMaterial : MonoBehaviour
         }
     }
 
+    // Pedimos Rareza
     public RarityEnum GetRandomMaterial()
     {
         return MyRandoms.Roulette(_pesoDeRarezas);
@@ -38,10 +39,12 @@ public class RandomMaterial : MonoBehaviour
                 materialesNuevos = new Material[]{bodyMaterial, materiales[0]};
                 myMaterial.materials = materialesNuevos;
                 break;
+                
             case RarityEnum.Raro:
                 materialesNuevos = new Material[]{bodyMaterial, materiales[1]};
                 myMaterial.materials = materialesNuevos;
                 break;
+
             case RarityEnum.UltraRaro:
                 materialesNuevos = new Material[]{bodyMaterial, materiales[2]};
                 myMaterial.materials = materialesNuevos;
