@@ -35,6 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5500514037495934785}
+  - {fileID: 6271751259186140433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &6411911153884543856
@@ -127,6 +128,98 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+--- !u!1 &6120139581082457849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6271751259186140433}
+  - component: {fileID: 3454556451283147347}
+  - component: {fileID: 987161183503928295}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6271751259186140433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120139581082457849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.17344415, y: 0.0014803194, z: -0.008405175, w: 0.9848067}
+  m_LocalPosition: {x: -0.032, y: 0.519, z: -0.561}
+  m_LocalScale: {x: 0.33333328, y: 0.33333328, z: 0.33333328}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 835086575263020846}
+  m_LocalEulerAnglesHint: {x: 19.977, y: 0, z: -0.978}
+--- !u!20 &3454556451283147347
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120139581082457849}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &987161183503928295
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6120139581082457849}
+  m_Enabled: 1
 --- !u!1001 &5467221662678370474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,6 +303,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b55fd8ff82afc34bbfb4046af6795d3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 570639179011781574}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0b55fd8ff82afc34bbfb4046af6795d3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1873101243621015622}
   m_SourcePrefab: {fileID: 100100000, guid: 0b55fd8ff82afc34bbfb4046af6795d3, type: 3}
 --- !u!1 &5124552063405979131 stripped
 GameObject:
@@ -237,6 +333,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1873101243621015622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5124552063405979131}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1202f811d2afb54d93d88e54e267e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rarezaMateriales:
+  - Weight: 50
+    rarity: 0
+  - Weight: 30
+    rarity: 1
+  - Weight: 20
+    rarity: 2
+  bodyMaterial: {fileID: -101164779211832924, guid: 0b55fd8ff82afc34bbfb4046af6795d3, type: 3}
+  materiales:
+  - {fileID: 2100000, guid: 44a7394aae249ed44935cbcd36d1047a, type: 2}
+  - {fileID: 2100000, guid: cd26c734039020a46ae476a0f9594f58, type: 2}
+  - {fileID: 2100000, guid: dc35fb720452ee84bbaecce2f09e6ca3, type: 2}
 --- !u!4 &5500514037495934785 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0b55fd8ff82afc34bbfb4046af6795d3, type: 3}
