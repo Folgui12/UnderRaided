@@ -7,6 +7,7 @@ public class EnemyPatrolState<T> : State<T>
     private ISteering _steering;
     private BaseEnemyModel _model;
     private BaseEnemyView _view;
+    private BaseEnemyController _controller;
     private ObstacleAvoidance _obs;
 
     private bool _isFinishPath;
@@ -14,11 +15,12 @@ public class EnemyPatrolState<T> : State<T>
     int _nextPoint = 0;
 
 
-    public EnemyPatrolState(ISteering steering, BaseEnemyModel model, BaseEnemyView view, ObstacleAvoidance obs)
+    public EnemyPatrolState(ISteering steering, BaseEnemyModel model, BaseEnemyView view, BaseEnemyController controller, ObstacleAvoidance obs)
     {
         _steering = steering;
         _model = model;
         _view = view;
+        _controller = controller; 
         _obs = obs;
     }
 
@@ -31,6 +33,8 @@ public class EnemyPatrolState<T> : State<T>
         _view.StartWalking();
         
         _model.ResetIdleTimer();
+
+        _controller.RunAStarPlus();
     }
 
 
@@ -40,10 +44,21 @@ public class EnemyPatrolState<T> : State<T>
         Run();
     }
 
+    public void SetWayPoints(List<Node> newPoints)
+    {
+        var list = new List<Vector3>();
+        for (int i = 0; i < newPoints.Count; i++)
+        {
+            list.Add(newPoints[i].transform.position);
+        }
+        SetWayPoints(list);
+    }
+
     public void SetWayPoints(List<Vector3> newPoints)
     {
         _nextPoint = 0;
         if (newPoints.Count == 0) return;
+        //_anim.Play("CIA_Idle");
         _waypoints = newPoints;
         var pos = _waypoints[_nextPoint];
         pos.y = _model.transform.position.y;

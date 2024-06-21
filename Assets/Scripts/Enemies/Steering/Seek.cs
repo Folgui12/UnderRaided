@@ -7,6 +7,8 @@ public class Seek : ISteering
     Transform _entity;
     Transform _target;
     BaseEnemyModel _model;
+    BaseEnemyController _controller;
+    
     public Seek(BaseEnemyModel model, Transform entity, Transform target)
     {
         _entity = entity;
@@ -16,7 +18,7 @@ public class Seek : ISteering
 
     public Vector3 GetDir()
     {
-        _target = _model.currentObjective;
+        _target = _controller.currentObjective;
         return (_target.position - _entity.position).normalized;
     }
 }

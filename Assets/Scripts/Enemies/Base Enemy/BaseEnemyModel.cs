@@ -9,16 +9,16 @@ public class BaseEnemyModel : MonoBehaviour
     [SerializeField] private Collider rightArm;
     [SerializeField] private float idleTimerSetter;
 
-    public Transform[] patrolPoints;
+    //public Transform[] patrolPoints;
 
-    public int targetPoint;
+    //public int targetPoint;
     public EnemyStats Stats => _stats;
-    public Transform currentObjective;
+    //public Transform currentObjective;
     public Transform playerPosition;
     public float idleTimer;
-    public bool inOrder;
-    public bool onLastPoint;
-    public bool onFirstPoint;
+    //public bool inOrder;
+    //public bool onLastPoint;
+    //public bool onFirstPoint;
 
     Rigidbody _rb;
 
@@ -28,13 +28,13 @@ public class BaseEnemyModel : MonoBehaviour
     
     private void Awake()
     {
-        targetPoint = 0;
+        //targetPoint = 0;
         rightArm.enabled = false;
         _rb = GetComponent<Rigidbody>();
         lineOfSight = GetComponent<LoS>();
-        currentObjective = patrolPoints[0];
+        //currentObjective = patrolPoints[0];
         _view = GetComponent<BaseEnemyView>();
-        inOrder = false;
+        //inOrder = false;
         ResetIdleTimer();
     }
 
