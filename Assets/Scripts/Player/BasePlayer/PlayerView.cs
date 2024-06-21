@@ -6,10 +6,12 @@ public class PlayerView : MonoBehaviour
 {
     public Animator anim;
     private RandomMaterial randomMaterial;
+    private PlayerModel _model;
 
     void Awake()
     {
         randomMaterial = GetComponentInChildren<RandomMaterial>();
+        _model = GetComponent<PlayerModel>();
     }
 
     // Start is called before the first frame update
@@ -17,16 +19,5 @@ public class PlayerView : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         randomMaterial.SetRandomMaterial();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void LookDir(float vel)
-    {
-        transform.Rotate(0, vel * Time.deltaTime, 0);
     }
 }

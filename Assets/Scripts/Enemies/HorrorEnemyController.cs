@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DFS : MonoBehaviour
+public class HorrorEnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -10,9 +10,13 @@ public class DFS : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    /*List<Node> GetConnections(Node current)
     {
-        
+
     }
+
+    bool IsSatisfies(Node current)
+    {
+
+    }*/
 }

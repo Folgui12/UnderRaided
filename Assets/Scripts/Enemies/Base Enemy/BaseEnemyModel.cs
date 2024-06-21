@@ -46,30 +46,10 @@ public class BaseEnemyModel : MonoBehaviour
         _rb.velocity = dir;
     }
 
-    // Guardo el punto de patrullaje actual, para recordarlo despues de Perseguir
-    public void CurrentWaypoint()
-    {
-        currentObjective = patrolPoints[targetPoint];
-    }
-
     // Calculo el vector director hacia la posición del jugador para el estado de Perseguir o Chase
     public Vector3 CalculateDirectionToPlayer()
     {
         return (playerPosition.position - transform.position).normalized;
-    }
-
-    // Sumo el index de los Puntos de Patrullaje
-    private void IncreaseTargetInt()
-    {
-        if(targetPoint < patrolPoints.Length-1)
-            targetPoint++;
-    }
-
-    // Resto el index de los Pntos de Patrullaje
-    private void DecreaseTargetInt()
-    {   
-        if(targetPoint >= 1)
-            targetPoint--;
     }
 
     // Verificador para saber si se agotó el tiempo de Idle
@@ -100,9 +80,50 @@ public class BaseEnemyModel : MonoBehaviour
         rightArm.enabled = false;
     }
 
+    public Vector3 Origin => transform.position;
+    public Vector3 Forward => transform.forward;
+
+    public void SetPosition(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;      
+        Gizmos.DrawWireSphere(Origin, _stats.viewRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(Origin, Quaternion.Euler(0, _stats.viewAngle/2, 0) * Forward * _stats.viewRange);
+        Gizmos.DrawRay(Origin, Quaternion.Euler(0, -_stats.viewAngle/2, 0) * Forward * _stats.viewRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(Origin, _stats.attackRange);
+    }
+#endif
+
+    // Guardo el punto de patrullaje actual, para recordarlo despues de Perseguir
+    /*public void CurrentWaypoint()
+    {
+        currentObjective = patrolPoints[targetPoint];
+    }*/
+
+    // Sumo el index de los Puntos de Patrullaje
+    /*private void IncreaseTargetInt()
+    {
+        if(targetPoint < patrolPoints.Length-1)
+            targetPoint++;
+    }
+
+    // Resto el index de los Pntos de Patrullaje
+    private void DecreaseTargetInt()
+    {   
+        if(targetPoint >= 1)
+            targetPoint--;
+    }*/
+
 
     // Chequeo que el enemigo llegó al siguiente punto de patrullaje
-    void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("PatrolPoint") && inOrder)
         {
@@ -151,21 +172,7 @@ public class BaseEnemyModel : MonoBehaviour
     public bool onFirstPatrolPoint()
     {
         return onFirstPoint;
-    }
+    }*/
 
-#if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.blue;      
-        Gizmos.DrawWireSphere(Origin, _stats.viewRange);
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(Origin, Quaternion.Euler(0, _stats.viewAngle/2, 0) * Forward * _stats.viewRange);
-        Gizmos.DrawRay(Origin, Quaternion.Euler(0, -_stats.viewAngle/2, 0) * Forward * _stats.viewRange);
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(Origin, _stats.attackRange);
-    }
-#endif
-
-    public Vector3 Origin => transform.position;
-    public Vector3 Forward => transform.forward;
+    
 }

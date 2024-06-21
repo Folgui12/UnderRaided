@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerModel : MonoBehaviour
 {
-    [SerializeField] private float speed; 
+    [Header("Movement")]
+    public float speed; 
 
+    Vector3 moveDir;
     public float life;
-
     private Rigidbody _rb;
 
     // Start is called before the first frame update
@@ -17,17 +18,15 @@ public class PlayerModel : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Move(float horizontalInput, float verticalInput)
     {
-        
-    }
+        moveDir = transform.forward * verticalInput + transform.right * horizontalInput;
 
-    public void Move(Vector3 dir)
-    {
-        dir *= speed;
-        dir.y = _rb.velocity.y;
-        _rb.velocity = dir;
+        moveDir *= speed;
+        moveDir.y = _rb.velocity.y;
+        _rb.velocity = moveDir;
+
+
     }
 
     public void RIP()

@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerWalkingState<T> : State<T>
@@ -8,6 +8,9 @@ public class PlayerWalkingState<T> : State<T>
     private PlayerModel _model;
     private PlayerView _view;
     private PlayerController _controller;
+
+    float x;
+    float z;
 
     public PlayerWalkingState(PlayerModel model, PlayerView view, PlayerController controller)
     {
@@ -23,16 +26,10 @@ public class PlayerWalkingState<T> : State<T>
 
     public override void Execute()
     {
-        if(Input.GetKey(KeyCode.W))
-            _model.Move((_model.transform.forward * Time.deltaTime).normalized);
+        x = Input.GetAxisRaw("Horizontal");
+        z = Input.GetAxisRaw("Vertical");
 
-        if(Input.GetKey(KeyCode.S))
-            _model.Move((-_model.transform.forward * Time.deltaTime).normalized);
+        _model.Move(x, z);
 
-        if(Input.GetKey(KeyCode.A))
-            _view.LookDir(-_controller.turnSpeed);
-
-        if(Input.GetKey(KeyCode.D))
-            _view.LookDir(_controller.turnSpeed);
     }
 }

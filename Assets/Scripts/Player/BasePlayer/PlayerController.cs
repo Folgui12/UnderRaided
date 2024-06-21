@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float turnSpeed;
     PlayerModel _playerModel;
     PlayerView _playerView;
-    PlayerController _playerController;
     
     FSM<PlayerStatesEnum> _fsm;
     ITreeNode _root;
@@ -16,7 +14,6 @@ public class PlayerController : MonoBehaviour
     {
         _playerModel = GetComponent<PlayerModel>();
         _playerView = GetComponent<PlayerView>();
-        _playerController = GetComponent<PlayerController>();
     }
 
     private void Start()
@@ -28,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void InitializeFSM()
     {
         var idle = new PlayerIdleState<PlayerStatesEnum>(_playerModel, _playerView);
-        var walk = new PlayerWalkingState<PlayerStatesEnum>(_playerModel, _playerView, _playerController);
+        var walk = new PlayerWalkingState<PlayerStatesEnum>(_playerModel, _playerView, this);
         var death = new PlayerDeathState<PlayerStatesEnum>(_playerModel);
 
         idle.AddTransition(PlayerStatesEnum.Dead, death);
@@ -57,7 +54,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         _fsm.OnUpdate();
-        _root.Execute();
+        _root.Execute(); 
     }
 
     bool QuestionHasLife()

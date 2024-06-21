@@ -39,7 +39,7 @@ public class EnemyIdleState<T> : State<T>
         base.Sleep();
 
         // Activa todos los puntos de patrullaje nuevamente y cambia el sentido del recorrido
-        _model.ActiveAllPatrolPoints();
-        _model.inOrder = !_model.inOrder;
+        //_model.ActiveAllPatrolPoints();
+        //_model.inOrder = !_model.inOrder;
     }
 }
