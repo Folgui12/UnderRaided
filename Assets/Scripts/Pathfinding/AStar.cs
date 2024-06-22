@@ -44,6 +44,9 @@ public class AStar
                 parents[child] = current;
             }
         }
+
+        Debug.Log(visited.Count);
+
         return new List<T>();
     }
     public static List<T> CleanPath<T>(List<T> path, Func<T, T, bool> inView)

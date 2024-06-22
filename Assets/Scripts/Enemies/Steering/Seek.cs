@@ -9,10 +9,9 @@ public class Seek : ISteering
     BaseEnemyModel _model;
     BaseEnemyController _controller;
     
-    public Seek(BaseEnemyModel model, Transform entity, Transform target)
+    public Seek(BaseEnemyModel model, Transform entity)
     {
         _entity = entity;
-        _target = target;
         _model = model;
     }
 

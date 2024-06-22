@@ -7,7 +7,7 @@ public class EnemyPatrolState<T> : State<T>
     private ISteering _steering;
     private BaseEnemyModel _model;
     private BaseEnemyView _view;
-    private BaseEnemyController _controller;
+    private EnemyPatrolController _controller;
     private ObstacleAvoidance _obs;
 
     private bool _isFinishPath;
@@ -15,7 +15,7 @@ public class EnemyPatrolState<T> : State<T>
     int _nextPoint = 0;
 
 
-    public EnemyPatrolState(ISteering steering, BaseEnemyModel model, BaseEnemyView view, BaseEnemyController controller, ObstacleAvoidance obs)
+    public EnemyPatrolState(ISteering steering, BaseEnemyModel model, BaseEnemyView view, EnemyPatrolController controller, ObstacleAvoidance obs)
     {
         _steering = steering;
         _model = model;
@@ -30,11 +30,12 @@ public class EnemyPatrolState<T> : State<T>
     {
         base.Enter();
 
+        _controller.RunAStarPlus();
+
         _view.StartWalking();
         
         _model.ResetIdleTimer();
 
-        _controller.RunAStarPlus();
     }
 
 
@@ -51,6 +52,7 @@ public class EnemyPatrolState<T> : State<T>
         {
             list.Add(newPoints[i].transform.position);
         }
+        Debug.Log(list.Count);
         SetWayPoints(list);
     }
 
@@ -58,19 +60,16 @@ public class EnemyPatrolState<T> : State<T>
     {
         _nextPoint = 0;
         if (newPoints.Count == 0) return;
-        //_anim.Play("CIA_Idle");
         _waypoints = newPoints;
         var pos = _waypoints[_nextPoint];
         pos.y = _model.transform.position.y;
-        _model.SetPosition(pos);
         _isFinishPath = false;
     }
 
     void Run()
     {
-        if (IsFinishPath) return;
-        var point = _waypoints[_nextPoint];
-        var posPoint = point;
+        if (IsFinishPath) return; 
+        var posPoint = _waypoints[_nextPoint];
         posPoint.y = _model.transform.position.y;
         Vector3 dir = posPoint - _model.transform.position;
         if (dir.magnitude < 0.2f)
@@ -84,7 +83,7 @@ public class EnemyPatrolState<T> : State<T>
             }
         }
 
-        //var dir = _obs.GetDir(_steering.GetDir(), false);
+        dir = _obs.GetDir(_steering.GetDir(), false);
 
         _model.Move(dir.normalized);
         _view.LookDir(dir);

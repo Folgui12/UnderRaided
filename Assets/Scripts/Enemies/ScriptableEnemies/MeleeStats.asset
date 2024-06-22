@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MeleeStats
   m_EditorClassIdentifier: 
   <life>k__BackingField: 5
-  <travelSpeed>k__BackingField: 5
+  <travelSpeed>k__BackingField: 2
   <attackSpeed>k__BackingField: 1
-  <attackRange>k__BackingField: 1.5
-  <viewRange>k__BackingField: 7
-  <viewAngle>k__BackingField: 156
+  <attackRange>k__BackingField: 1
+  <viewRange>k__BackingField: 3.56
+  <viewAngle>k__BackingField: 60

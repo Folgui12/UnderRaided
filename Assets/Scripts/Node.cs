@@ -5,4 +5,6 @@ using UnityEngine;
 public class Node : MonoBehaviour
 {
     public List<Node> neightbourds;
+
+    public bool alreadyVisited;
 }
