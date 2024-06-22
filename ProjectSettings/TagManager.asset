@@ -12,6 +12,7 @@ TagManager:
   - FinishLine
   - Wall
   - MyGrid
+  - Furniture
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - Player
   - Wall
   - Node
-  - 
+  - Furniture
   - 
   - 
   - 

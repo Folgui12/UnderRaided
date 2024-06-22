@@ -8,9 +8,11 @@ public class EnemyPatrolController : MonoBehaviour
     public float radius = 3;
     public LayerMask maskNodes;
     public LayerMask maskObs;
-    private Transform CurrentObjective;
+    public Transform CurrentObjective;
     private Node target;
     public List<Node> DeadEndsNodes;
+
+    private int DeadEndsIndex = 0;
     
     public void RunAStarPlus()
     {
@@ -20,7 +22,6 @@ public class EnemyPatrolController : MonoBehaviour
         List<Node> path = AStar.Run(start, GetConnections, IsSatiesfies, GetCost, Heuristic);
         path = AStar.CleanPath(path, InView);
         enemy.GetStateWaypoints.SetWayPoints(path);
-        //PosTarget
     }
 
     bool InView(Node grandParent, Node child)
@@ -59,26 +60,12 @@ public class EnemyPatrolController : MonoBehaviour
 
     void GetNextNodeTarget()
     {
-        int random = Random.Range(0, DeadEndsNodes.Count);
-
-        if(CurrentObjective == null)
+        CurrentObjective = DeadEndsNodes[DeadEndsIndex].transform;
+        target = DeadEndsNodes[DeadEndsIndex];
+        DeadEndsIndex++;
+        if(DeadEndsIndex == DeadEndsNodes.Count)
         {
-            CurrentObjective = DeadEndsNodes[random].transform;
-            target = DeadEndsNodes[random];
-        }
-        else
-        {  
-            target.alreadyVisited = true;
-            while(target == DeadEndsNodes[random] || DeadEndsNodes[random].alreadyVisited)
-            {
-                random = Random.Range(0, DeadEndsNodes.Count);
-                if(target != DeadEndsNodes[random] && !DeadEndsNodes[random].alreadyVisited)
-                {   
-                    CurrentObjective = DeadEndsNodes[random].transform;
-                    target = DeadEndsNodes[random]; 
-                }
-                    
-            }
+            DeadEndsIndex = 0; 
         }
     } 
 

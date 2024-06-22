@@ -6,12 +6,14 @@ public class EnemyIdleState<T> : State<T>
 {
     private BaseEnemyModel _model;
     private BaseEnemyView _view;
+    private EnemyPatrolController _controller;
 
 
-    public EnemyIdleState(BaseEnemyModel model, BaseEnemyView view)
+    public EnemyIdleState(BaseEnemyModel model, BaseEnemyView view, EnemyPatrolController controller)
     {
         _model = model;
         _view = view;
+        _controller = controller;
     }
 
     public override void Enter()
@@ -20,6 +22,8 @@ public class EnemyIdleState<T> : State<T>
 
         // Cambiamos de animación al idle
         _view.StayIdle();
+        _model.ResetIdleTimer();
+
     }
 
 
@@ -28,15 +32,12 @@ public class EnemyIdleState<T> : State<T>
     {
         _model.Move(Vector3.zero);
 
-        if(_model.idleTimer > 0)
-        {
-            _model.idleTimer -= Time.deltaTime;
-        }
+        _model.CountDown();
     }
 
     public override void Sleep()
     {
         base.Sleep();
-        
+        _model.ResetIdleTimer();
     }
 }

@@ -10,7 +10,7 @@ public class EnemyPatrolState<T> : State<T>
     private EnemyPatrolController _controller;
     private ObstacleAvoidance _obs;
 
-    private bool _isFinishPath;
+    private bool _isFinishPath = false;
     List<Vector3> _waypoints;
     int _nextPoint = 0;
 
@@ -29,13 +29,8 @@ public class EnemyPatrolState<T> : State<T>
     public override void Enter()
     {
         base.Enter();
-
-        _controller.RunAStarPlus();
-
         _view.StartWalking();
-        
-        _model.ResetIdleTimer();
-
+        _controller.RunAStarPlus();
     }
 
 
@@ -45,6 +40,11 @@ public class EnemyPatrolState<T> : State<T>
         Run();
     }
 
+    public override void Sleep()
+    {
+        base.Sleep(); 
+    }
+
     public void SetWayPoints(List<Node> newPoints)
     {
         var list = new List<Vector3>();
@@ -52,7 +52,6 @@ public class EnemyPatrolState<T> : State<T>
         {
             list.Add(newPoints[i].transform.position);
         }
-        Debug.Log(list.Count);
         SetWayPoints(list);
     }
 
@@ -68,6 +67,7 @@ public class EnemyPatrolState<T> : State<T>
 
     void Run()
     {
+        
         if (IsFinishPath) return; 
         var posPoint = _waypoints[_nextPoint];
         posPoint.y = _model.transform.position.y;
@@ -83,7 +83,7 @@ public class EnemyPatrolState<T> : State<T>
             }
         }
 
-        dir = _obs.GetDir(_steering.GetDir(), false);
+        //dir = _obs.GetDir(_steering.GetDir(), false);
 
         _model.Move(dir.normalized);
         _view.LookDir(dir);

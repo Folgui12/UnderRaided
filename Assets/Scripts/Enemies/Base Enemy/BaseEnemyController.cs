@@ -30,11 +30,9 @@ public class BaseEnemyController : MonoBehaviour
 
     #region  Pathfinding
 
-    public Transform currentObjective;
-
     public LayerMask maskNodes;
     
-    private EnemyPatrolState<StatesEnum> patrolState;
+    public EnemyPatrolState<StatesEnum> patrolState;
 
     #endregion
 
@@ -57,7 +55,7 @@ public class BaseEnemyController : MonoBehaviour
     // Inicializo la máquina de estados
     void InitializeFSM()
     {
-        var idle = new EnemyIdleState<StatesEnum>(_model, _view);
+        var idle = new EnemyIdleState<StatesEnum>(_model, _view, _pController);
         var attack = new EnemyAttackState<StatesEnum>(_model);
         patrolState = new EnemyPatrolState<StatesEnum>(_steering, _model, _view, _pController, _obstacleAvoidance);
         var chase = new EnemyChaseState<StatesEnum>(_steering, _model, _view, _obstacleAvoidance);
@@ -83,7 +81,7 @@ public class BaseEnemyController : MonoBehaviour
     // Inicializo la forma en la que los enemigos se moverán
     void InitializeSteerings()
     {
-        seek = new Seek(_model, _model.transform);
+        seek = new Seek(_model, _model.transform, _pController);
         pursuit = new Pursuit(_model.transform, playerModel.GetComponent<Rigidbody>(), timePrediction);
         evade = new Evade(_model.transform, playerModel.GetComponent<Rigidbody>(), timePrediction);
 
@@ -107,7 +105,7 @@ public class BaseEnemyController : MonoBehaviour
         
         QuestionNode qIdle = new QuestionNode(QuestionWithIdleTime, idle, patrol);
 
-        QuestionNode qPatrol = new QuestionNode(() => patrolState.IsFinishPath, qLos, qIdle);
+        QuestionNode qPatrol = new QuestionNode(() => patrolState.IsFinishPath, qIdle, qLos);
             
         _root = qPatrol;
     }
@@ -115,6 +113,7 @@ public class BaseEnemyController : MonoBehaviour
     // Pregunto si el enemigo todavia tiene tiempo para quedarse en estado de Idle
     bool QuestionWithIdleTime()
     {
+        Debug.Log(!_model.outOfIdleTime());
         return !_model.outOfIdleTime();
     }
 

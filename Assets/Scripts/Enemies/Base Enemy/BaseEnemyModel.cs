@@ -6,7 +6,6 @@ public class BaseEnemyModel : MonoBehaviour
 {
 
     [SerializeField] private EnemyStats _stats;
-    [SerializeField] private Collider rightArm;
     [SerializeField] private float idleTimerSetter;
 
     //public Transform[] patrolPoints;
@@ -29,13 +28,14 @@ public class BaseEnemyModel : MonoBehaviour
     private void Awake()
     {
         //targetPoint = 0;
-        rightArm.enabled = false;
+        //rightArm.enabled = false;
         _rb = GetComponent<Rigidbody>();
         lineOfSight = GetComponent<LoS>();
         //currentObjective = patrolPoints[0];
         _view = GetComponent<BaseEnemyView>();
         //inOrder = false;
         ResetIdleTimer();
+        idleTimerSetter = 3;
     }
 
     // Muevo al enemigo en la dirección que se le pasa por parámetro
@@ -52,9 +52,15 @@ public class BaseEnemyModel : MonoBehaviour
         return (playerPosition.position - transform.position).normalized;
     }
 
+    public void CountDown()
+    {
+        idleTimer -= Time.deltaTime;
+    }
+
     // Verificador para saber si se agotó el tiempo de Idle
     public bool outOfIdleTime()
     {
+
         return idleTimer <= 0;
     }
 
@@ -71,14 +77,14 @@ public class BaseEnemyModel : MonoBehaviour
     }
 
     // Activo y Desactivo el brazo con el que golpea el enemigo
-    public void ActiveRightArm()
+    /*public void ActiveRightArm()
     {
         rightArm.enabled = true;
     }
     public void DeactiveRightArm()
     {
         rightArm.enabled = false;
-    }
+    }*/
 
     public Vector3 Origin => transform.position;
     public Vector3 Forward => transform.forward;
