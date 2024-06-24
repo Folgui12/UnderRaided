@@ -31,5 +31,7 @@ public class PlayerWalkingState<T> : State<T>
 
         _model.Move(x, z);
 
+        _view.StepNoise(); 
+
     }
 }

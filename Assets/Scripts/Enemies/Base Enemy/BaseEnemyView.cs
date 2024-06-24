@@ -48,9 +48,10 @@ public class BaseEnemyView : MonoBehaviour
     }
 
     // Activo el sonido de reconocimiento del player
-    public void ActiveNoise()
+    public void StepNoise()
     {
-        audio.PlayOneShot(audio.clip);
+        if(!audio.isPlaying)
+            audio.PlayOneShot(audio.clip);
     }
 
     // Detecto cuando un Golem chocó con un arbol

@@ -12,6 +12,8 @@ public class FlashlightPower : MonoBehaviour
 
     private RaycastHit hit;
 
+    private RaycastHit previousHitInfo; 
+
     private float timeToUseFlahslight = 10;
 
     void Start()
@@ -24,15 +26,25 @@ public class FlashlightPower : MonoBehaviour
     {
         if (Input.GetMouseButton(1) && timeToUseFlahslight > 0)
         {
-            if(Physics.Raycast(lightPoint.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask))
+            // 
+            if(Physics.Raycast(lightPoint.position, transform.TransformDirection(Vector3.forward),out hit, Mathf.Infinity, layerMask))
             {
-                Debug.DrawRay(lightPoint.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-                Debug.Log("Did Hit");
+                previousHitInfo = hit;
 
-                flahslight.intensity = 2;
-                flahslight.spotAngle = 20;
+                hit.collider.gameObject.GetComponent<BaseEnemyController>().SetToEvade = true;
             }
+
+            flahslight.intensity = 2;
+            flahslight.spotAngle = 20;
+
             timeToUseFlahslight -= Time.deltaTime;
+        }
+        else
+        {
+            if(previousHitInfo.collider != null)
+            {   
+                previousHitInfo.collider.gameObject.GetComponent<BaseEnemyController>().SetToEvade = false;
+            }
         }
 
         if (Input.GetMouseButtonUp(1))

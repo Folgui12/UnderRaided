@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <life>k__BackingField: 5
   <travelSpeed>k__BackingField: 1
-  <attackSpeed>k__BackingField: 1
-  <attackRange>k__BackingField: 1
-  <viewRange>k__BackingField: 1.5
-  <viewAngle>k__BackingField: 156
+  <attackSpeed>k__BackingField: 3.2
+  <attackRange>k__BackingField: 1.5
+  <viewRange>k__BackingField: 8
+  <viewAngle>k__BackingField: 128

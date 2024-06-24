@@ -9,13 +9,16 @@ public class BaseEnemyController : MonoBehaviour
     EnemyPatrolController _pController;
     PlayerModel playerModel;
 
+    [SerializeField] private float idleTimerSetter;
+    private float idleTimer;
+
     #region STEERING
-    public Rigidbody target;
     public float timePrediction;
     public float angle;
     public float radius;
     public LayerMask maskObs;
     ObstacleAvoidance _obstacleAvoidance;
+    public bool SetToEvade;
     #endregion
 
     #region INTERFACE
@@ -43,6 +46,7 @@ public class BaseEnemyController : MonoBehaviour
         _pController = GetComponent<EnemyPatrolController>();
         _los = GetComponent<LoS>();
         playerModel = FindObjectOfType<PlayerModel>();
+        ResetIdleTimer();
     }
 
     private void Start()
@@ -55,10 +59,10 @@ public class BaseEnemyController : MonoBehaviour
     // Inicializo la máquina de estados
     void InitializeFSM()
     {
-        var idle = new EnemyIdleState<StatesEnum>(_model, _view, _pController);
+        var idle = new EnemyIdleState<StatesEnum>(_model, _view, this);
         var attack = new EnemyAttackState<StatesEnum>(_model);
         patrolState = new EnemyPatrolState<StatesEnum>(_steering, _model, _view, _pController, _obstacleAvoidance);
-        var chase = new EnemyChaseState<StatesEnum>(_steering, _model, _view, _obstacleAvoidance);
+        var chase = new EnemyChaseState<StatesEnum>(_steering, _model, _view, this,_obstacleAvoidance);
 
         idle.AddTransition(StatesEnum.Attack, attack);
         idle.AddTransition(StatesEnum.Patrol, patrolState);
@@ -110,25 +114,65 @@ public class BaseEnemyController : MonoBehaviour
         _root = qPatrol;
     }
 
+    // Calculo el vector director hacia la posición del jugador para el estado de Perseguir o Chase
+    public Vector3 CalculateDirectionToPlayer()
+    {
+        return (playerModel.transform.position - transform.position).normalized;
+    }
+
+    public void CountDown()
+    {
+        idleTimer -= Time.deltaTime;
+    }
+
+    // Verificador para saber si se agotó el tiempo de Idle
+    public bool outOfIdleTime()
+    {
+
+        return idleTimer <= 0;
+    }
+
+    // Devuelvo el tiempo de Idle para el próximo uso
+    public void ResetIdleTimer()
+    {
+        idleTimer = idleTimerSetter;
+    }
+
     // Pregunto si el enemigo todavia tiene tiempo para quedarse en estado de Idle
     bool QuestionWithIdleTime()
     {
-        Debug.Log(!_model.outOfIdleTime());
-        return !_model.outOfIdleTime();
+        return !outOfIdleTime();
     }
 
     // Pregunto si el player está a la vista
     bool QuestionLos()
     {
-        return _los.CheckViewRange(_model.playerPosition) 
-            && _los.CheckAngle(_model.playerPosition) 
-            && _los.CheckView(_model.playerPosition);
+        return _los.CheckViewRange(playerModel.transform) 
+            && _los.CheckAngle(playerModel.transform) 
+            && _los.CheckView(playerModel.transform);
     }
 
     private void Update()
     {
         _fsm.OnUpdate();
         _root.Execute();
+    }
+
+    public void ChangeSteeringToSeek()
+    {
+        _steering = seek;
+        _model.SetSpeedToPatrol();
+    }
+
+    public void ChangeSteeringToPursuit()
+    {
+        _steering = pursuit;
+        _model.SetSpeedToPursuit();
+    }
+
+    public void ChangeSteeringToEvade()
+    {
+        _steering = evade;
     }
 
 public EnemyPatrolState<StatesEnum> GetStateWaypoints => patrolState;

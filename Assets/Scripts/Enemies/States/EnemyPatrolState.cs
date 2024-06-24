@@ -38,11 +38,14 @@ public class EnemyPatrolState<T> : State<T>
     public override void Execute()
     {
         Run();
+        _view.StepNoise();
     }
 
     public override void Sleep()
     {
         base.Sleep(); 
+
+        
     }
 
     public void SetWayPoints(List<Node> newPoints)
@@ -83,7 +86,7 @@ public class EnemyPatrolState<T> : State<T>
             }
         }
 
-        //dir = _obs.GetDir(_steering.GetDir(), false);
+        dir = _obs.GetDir(dir, false).normalized;
 
         _model.Move(dir.normalized);
         _view.LookDir(dir);

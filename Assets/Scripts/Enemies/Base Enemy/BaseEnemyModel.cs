@@ -6,18 +6,15 @@ public class BaseEnemyModel : MonoBehaviour
 {
 
     [SerializeField] private EnemyStats _stats;
-    [SerializeField] private float idleTimerSetter;
 
     //public Transform[] patrolPoints;
 
     //public int targetPoint;
     public EnemyStats Stats => _stats;
     //public Transform currentObjective;
-    public Transform playerPosition;
     public float idleTimer;
-    //public bool inOrder;
-    //public bool onLastPoint;
-    //public bool onFirstPoint;
+
+    private float currentSpeed; 
 
     Rigidbody _rb;
 
@@ -27,53 +24,34 @@ public class BaseEnemyModel : MonoBehaviour
     
     private void Awake()
     {
-        //targetPoint = 0;
-        //rightArm.enabled = false;
         _rb = GetComponent<Rigidbody>();
         lineOfSight = GetComponent<LoS>();
-        //currentObjective = patrolPoints[0];
         _view = GetComponent<BaseEnemyView>();
-        //inOrder = false;
-        ResetIdleTimer();
-        idleTimerSetter = 3;
+        SetSpeedToPatrol();
     }
 
     // Muevo al enemigo en la dirección que se le pasa por parámetro
     public void Move(Vector3 dir)
     {
-        dir *= _stats.travelSpeed;
+        dir *= currentSpeed;
         dir.y = _rb.velocity.y;
         _rb.velocity = dir;
-    }
-
-    // Calculo el vector director hacia la posición del jugador para el estado de Perseguir o Chase
-    public Vector3 CalculateDirectionToPlayer()
-    {
-        return (playerPosition.position - transform.position).normalized;
-    }
-
-    public void CountDown()
-    {
-        idleTimer -= Time.deltaTime;
-    }
-
-    // Verificador para saber si se agotó el tiempo de Idle
-    public bool outOfIdleTime()
-    {
-
-        return idleTimer <= 0;
-    }
-
-    // Devuelvo el tiempo de Idle para el próximo uso
-    public void ResetIdleTimer()
-    {
-        idleTimer = idleTimerSetter;
     }
 
     // Activo ataque
     public void Attack()
     {
         _view.ActiveAttack();
+    }
+
+    public void SetSpeedToPursuit()
+    {
+        currentSpeed = _stats.attackSpeed;
+    }
+
+    public void SetSpeedToPatrol()
+    {
+        currentSpeed = _stats.travelSpeed;
     }
 
     // Activo y Desactivo el brazo con el que golpea el enemigo

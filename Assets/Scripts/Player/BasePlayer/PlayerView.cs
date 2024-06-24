@@ -6,12 +6,12 @@ public class PlayerView : MonoBehaviour
 {
     public Animator anim;
     private RandomMaterial randomMaterial;
-    private PlayerModel _model;
+    private AudioSource source;
 
     void Awake()
     {
         randomMaterial = GetComponentInChildren<RandomMaterial>();
-        _model = GetComponent<PlayerModel>();
+        source = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -19,5 +19,11 @@ public class PlayerView : MonoBehaviour
     {
         anim = GetComponentInChildren<Animator>();
         randomMaterial.SetRandomMaterial();
+    }
+
+    public void StepNoise()
+    {
+        if(!source.isPlaying)
+            source.PlayOneShot(source.clip);
     }
 }

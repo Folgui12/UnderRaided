@@ -8,8 +8,6 @@ public class LoS : MonoBehaviour, ILoS
     public LayerMask maskObs;
     private BaseEnemyModel _model;
 
-    public GameObject objectInFront; 
-
     void Awake()
     {
         _model = GetComponent<BaseEnemyModel>();
