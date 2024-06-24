@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenuScreen.unity
     guid: a225eb048901ded4ea2800ef42bd40f2
   - enabled: 1
-    path: Assets/Scenes/Level.unity
-    guid: 397d4193e00a3e24fbc79a924674dc2b
+    path: Assets/Scenes/HorrorLevel.unity
+    guid: fe37b9a4415454749a36295df690c862
   - enabled: 1
     path: Assets/Scenes/LoseScreen.unity
     guid: 429e6ed15f4ca6d44bfb329652c1e0a9

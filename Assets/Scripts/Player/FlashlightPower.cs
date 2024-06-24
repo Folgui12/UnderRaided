@@ -9,6 +9,7 @@ public class FlashlightPower : MonoBehaviour
     [SerializeField] private Light flahslight;
     [SerializeField] private Image lightTime; 
     [SerializeField] private Transform lightPoint;
+    [SerializeField] private AudioClip audioFlash; 
 
     private RaycastHit hit;
 
@@ -16,9 +17,15 @@ public class FlashlightPower : MonoBehaviour
 
     private float timeToUseFlahslight = 10;
 
+    private AudioSource audio;
+
+    private SetRandomFlashlightColor randomColor; 
+
     void Start()
     {
         lightTime.fillAmount = timeToUseFlahslight;
+        audio = GetComponent<AudioSource>();
+        randomColor = GetComponent<SetRandomFlashlightColor>();
     }
 
     // Update is called once per frame
@@ -26,7 +33,11 @@ public class FlashlightPower : MonoBehaviour
     {
         if (Input.GetMouseButton(1) && timeToUseFlahslight > 0)
         {
-            // 
+            if(!audio.isPlaying)
+                audio.PlayOneShot(audioFlash); 
+
+            randomColor.SetRandomColor();
+
             if(Physics.Raycast(lightPoint.position, transform.TransformDirection(Vector3.forward),out hit, Mathf.Infinity, layerMask))
             {
                 previousHitInfo = hit;

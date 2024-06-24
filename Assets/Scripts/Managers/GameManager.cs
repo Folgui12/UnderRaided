@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,5 +18,12 @@ public class GameManager : MonoBehaviour
         else Destroy(this);
     }
 
+    public void GameFinish()
+    {
+        if(keyCount >= 3)
+        {
+            SceneManager.LoadScene(3);
+        }
+    }
 
 }

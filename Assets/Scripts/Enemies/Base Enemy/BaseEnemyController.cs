@@ -60,21 +60,21 @@ public class BaseEnemyController : MonoBehaviour
     void InitializeFSM()
     {
         var idle = new EnemyIdleState<StatesEnum>(_model, _view, this);
-        var attack = new EnemyAttackState<StatesEnum>(_model);
-        patrolState = new EnemyPatrolState<StatesEnum>(_steering, _model, _view, _pController, _obstacleAvoidance);
-        var chase = new EnemyChaseState<StatesEnum>(_steering, _model, _view, this,_obstacleAvoidance);
+        var ScapeFromPlayer = new EnemyEvadeState<StatesEnum>(evade, _model, _view, this,_obstacleAvoidance);
+        patrolState = new EnemyPatrolState<StatesEnum>(_model, _view, _pController, _obstacleAvoidance);
+        var chase = new EnemyChaseState<StatesEnum>(_model, _view, this,_obstacleAvoidance);
 
-        idle.AddTransition(StatesEnum.Attack, attack);
+        idle.AddTransition(StatesEnum.Evade, ScapeFromPlayer);
         idle.AddTransition(StatesEnum.Patrol, patrolState);
         idle.AddTransition(StatesEnum.Chase, chase);
 
-        attack.AddTransition(StatesEnum.Idle, idle);
-        attack.AddTransition(StatesEnum.Chase, chase);
-        attack.AddTransition(StatesEnum.Patrol, patrolState);
+        ScapeFromPlayer.AddTransition(StatesEnum.Idle, idle);
+        ScapeFromPlayer.AddTransition(StatesEnum.Chase, chase);
+        ScapeFromPlayer.AddTransition(StatesEnum.Patrol, patrolState);
 
         chase.AddTransition(StatesEnum.Idle, idle);
         chase.AddTransition(StatesEnum.Patrol, patrolState);
-        chase.AddTransition(StatesEnum.Attack, attack);
+        chase.AddTransition(StatesEnum.Evade, ScapeFromPlayer);
 
         patrolState.AddTransition(StatesEnum.Idle, idle);
         patrolState.AddTransition(StatesEnum.Chase, chase);
@@ -101,11 +101,14 @@ public class BaseEnemyController : MonoBehaviour
         ActionNode idle = new ActionNode(() => _fsm.Transition(StatesEnum.Idle));
         ActionNode chase = new ActionNode(() => _fsm.Transition(StatesEnum.Chase));
         ActionNode patrol = new ActionNode(() => _fsm.Transition(StatesEnum.Patrol));
+        ActionNode escape = new ActionNode(() => _fsm.Transition(StatesEnum.Evade));
 
         //Question
         //QuestionNode qAttackRange = new QuestionNode(QuestionAttackRange, attack, chase);
 
-        QuestionNode qLos = new QuestionNode(QuestionLos, chase, patrol);
+        QuestionNode qSetToEvade = new QuestionNode(() => SetToEvade, escape, chase);
+
+        QuestionNode qLos = new QuestionNode(QuestionLos, qSetToEvade, patrol);
         
         QuestionNode qIdle = new QuestionNode(QuestionWithIdleTime, idle, patrol);
 
@@ -170,9 +173,9 @@ public class BaseEnemyController : MonoBehaviour
         _model.SetSpeedToPursuit();
     }
 
-    public void ChangeSteeringToEvade()
+    public void ChangeSpeedToEvade()
     {
-        _steering = evade;
+        _model.SetSpeedToPatrol();
     }
 
 public EnemyPatrolState<StatesEnum> GetStateWaypoints => patrolState;

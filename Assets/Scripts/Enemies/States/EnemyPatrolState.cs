@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EnemyPatrolState<T> : State<T>
 {
-    private ISteering _steering;
     private BaseEnemyModel _model;
     private BaseEnemyView _view;
     private EnemyPatrolController _controller;
@@ -15,9 +14,8 @@ public class EnemyPatrolState<T> : State<T>
     int _nextPoint = 0;
 
 
-    public EnemyPatrolState(ISteering steering, BaseEnemyModel model, BaseEnemyView view, EnemyPatrolController controller, ObstacleAvoidance obs)
+    public EnemyPatrolState(BaseEnemyModel model, BaseEnemyView view, EnemyPatrolController controller, ObstacleAvoidance obs)
     {
-        _steering = steering;
         _model = model;
         _view = view;
         _controller = controller; 

@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class EnemyChaseState<T> : State<T>
+public class EnemyEvadeState<T> : State<T>
 {
+    private ISteering _steering;
     private BaseEnemyModel _model;
     private BaseEnemyView _view;
     private BaseEnemyController _controller; 
     private ObstacleAvoidance _obs;
 
-    public EnemyChaseState(BaseEnemyModel model, BaseEnemyView view, BaseEnemyController controller, ObstacleAvoidance obs)
+    public EnemyEvadeState(ISteering steering, BaseEnemyModel model, BaseEnemyView view, BaseEnemyController controller, ObstacleAvoidance obs)
     {
+        _steering = steering;
         _model = model;
         _view = view;
         _controller = controller; 
@@ -20,7 +21,7 @@ public class EnemyChaseState<T> : State<T>
 
     public override void Enter()
     {
-        _controller.ChangeSteeringToPursuit(); 
+        _controller.ChangeSpeedToEvade(); 
         
         _view.ChangeNoiseToPursuit();
         _view.StartSprinting();
@@ -28,7 +29,7 @@ public class EnemyChaseState<T> : State<T>
 
     public override void Execute()
     {
-        var dir = _obs.GetDir(_controller.CalculateDirectionToPlayer(), false).normalized;
+        var dir = _obs.GetDir(_steering.GetDir(), false).normalized;
 
         _view.StepNoise();
 
