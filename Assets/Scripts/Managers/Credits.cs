@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoseScreen : MonoBehaviour
+public class Credits : MonoBehaviour
 {
     public void QuitGame()
     {
@@ -12,10 +12,7 @@ public class LoseScreen : MonoBehaviour
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
-    }
-    public void Credits()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 4);
     }
 }
+
