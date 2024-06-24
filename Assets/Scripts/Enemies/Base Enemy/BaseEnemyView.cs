@@ -6,6 +6,9 @@ public class BaseEnemyView : MonoBehaviour
 {
     public Animator anim;
 
+    public AudioClip walkAudio;
+    public AudioClip pursuitAudio;
+
     public AudioSource audio;
 
     // Start is called before the first frame update
@@ -33,6 +36,13 @@ public class BaseEnemyView : MonoBehaviour
     public void StartWalking()
     {
         anim.SetBool("Walking", true);
+        anim.SetFloat("AnimSpeed", 1f);
+    }
+
+    public void StartSprinting()
+    {
+        anim.SetBool("Walking", true);
+        anim.SetFloat("AnimSpeed", 2f);
     }
 
     // Comienzo la animación de Idle
@@ -45,6 +55,16 @@ public class BaseEnemyView : MonoBehaviour
     public void ActiveAttack()
     {
         anim.SetTrigger("Attack");
+    }
+
+    public void ChangeNoiseToWalk()
+    {
+        audio.clip = walkAudio; 
+    }
+
+    public void ChangeNoiseToPursuit()
+    {
+        audio.clip = pursuitAudio; 
     }
 
     // Activo el sonido de reconocimiento del player

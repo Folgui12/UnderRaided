@@ -25,8 +25,6 @@ public class PlayerModel : MonoBehaviour
         moveDir *= speed;
         moveDir.y = _rb.velocity.y;
         _rb.velocity = moveDir;
-
-
     }
 
     public void RIP()

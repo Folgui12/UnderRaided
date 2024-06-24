@@ -30,6 +30,7 @@ public class EnemyPatrolState<T> : State<T>
     {
         base.Enter();
         _view.StartWalking();
+        _view.ChangeNoiseToWalk();
         _controller.RunAStarPlus();
     }
 

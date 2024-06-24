@@ -22,10 +22,10 @@ public class EnemyChaseState<T> : State<T>
 
     public override void Enter()
     {
-        //_view.ActiveNoise();
-
         _controller.ChangeSteeringToPursuit(); 
         
+        _view.ChangeNoiseToPursuit();
+        _view.StartSprinting();
     }
 
     public override void Execute()
@@ -40,6 +40,8 @@ public class EnemyChaseState<T> : State<T>
         {
             _controller.ChangeSteeringToPursuit(); 
         }
+
+        _view.StepNoise();
 
         _model.Move(dir);
         _view.LookDir(dir);
