@@ -24,6 +24,11 @@ public class EnemyChaseState<T> : State<T>
         
         _view.ChangeNoiseToPursuit();
         _view.StartSprinting();
+
+        foreach (MinionModel minion in _controller.myMinions)
+        {
+            minion.speed = 2.5f; 
+        }
     }
 
     public override void Execute()

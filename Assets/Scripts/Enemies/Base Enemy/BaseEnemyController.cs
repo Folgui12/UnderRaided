@@ -10,6 +10,9 @@ public class BaseEnemyController : MonoBehaviour
     PlayerModel playerModel;
 
     [SerializeField] private float idleTimerSetter;
+
+    public List<MinionModel> myMinions = new List<MinionModel>();
+
     private float idleTimer;
 
     #region STEERING
@@ -47,6 +50,12 @@ public class BaseEnemyController : MonoBehaviour
         _los = GetComponent<LoS>();
         playerModel = FindObjectOfType<PlayerModel>();
         ResetIdleTimer();
+
+        var minions = FindObjectsOfType<MinionModel>();
+        foreach(MinionModel minion in minions)
+        {
+            myMinions.Add(minion);
+        }
     }
 
     private void Start()
@@ -61,7 +70,7 @@ public class BaseEnemyController : MonoBehaviour
     {
         var idle = new EnemyIdleState<StatesEnum>(_model, _view, this);
         var ScapeFromPlayer = new EnemyEvadeState<StatesEnum>(evade, _model, _view, this,_obstacleAvoidance);
-        patrolState = new EnemyPatrolState<StatesEnum>(_model, _view, _pController, _obstacleAvoidance);
+        patrolState = new EnemyPatrolState<StatesEnum>(_model, _view, this,_pController, _obstacleAvoidance);
         var chase = new EnemyChaseState<StatesEnum>(_model, _view, this,_obstacleAvoidance);
 
         idle.AddTransition(StatesEnum.Evade, ScapeFromPlayer);
@@ -176,6 +185,14 @@ public class BaseEnemyController : MonoBehaviour
     public void ChangeSpeedToEvade()
     {
         _model.SetSpeedToPatrol();
+    }
+
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        if(collisionInfo.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.GoToLoseScreen();
+        }
     }
 
 public EnemyPatrolState<StatesEnum> GetStateWaypoints => patrolState;

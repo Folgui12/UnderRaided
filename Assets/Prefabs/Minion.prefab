@@ -1184,7 +1184,8 @@ MonoBehaviour:
   target: {fileID: 0}
   timePrediction: 1
   angle: 215
-  radius: 2
+  radius: 3
+  closeToLeaderRadius: 5
   maskObs:
     serializedVersion: 2
     m_Bits: 20480

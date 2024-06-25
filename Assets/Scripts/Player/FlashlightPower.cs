@@ -20,6 +20,7 @@ public class FlashlightPower : MonoBehaviour
     private AudioSource audio;
 
     private SetRandomFlashlightColor randomColor; 
+    private bool changeColorOneTime = true;
 
     void Start()
     {
@@ -36,7 +37,12 @@ public class FlashlightPower : MonoBehaviour
             if(!audio.isPlaying)
                 audio.PlayOneShot(audioFlash); 
 
-            randomColor.SetRandomColor();
+            if(changeColorOneTime)
+            {
+                randomColor.SetRandomColor();
+                changeColorOneTime = false;
+            }
+            
 
             if(Physics.Raycast(lightPoint.position, transform.TransformDirection(Vector3.forward),out hit, Mathf.Infinity, layerMask))
             {
@@ -60,6 +66,7 @@ public class FlashlightPower : MonoBehaviour
 
         if (Input.GetMouseButtonUp(1))
         {
+            changeColorOneTime = true; 
             flahslight.intensity = 1.25f;
             flahslight.spotAngle = 65;
         }

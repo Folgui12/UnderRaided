@@ -13,8 +13,6 @@ public class EnemyPatrolController : MonoBehaviour
     public List<Node> DeadEndsNodes;
 
     private int DeadEndsIndex = 0;
-
-    public Node lastNodeToVisit;
     
     public void RunAStarPlus()
     {

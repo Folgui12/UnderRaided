@@ -6,20 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-   public void PlayGame ()
-   {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);
-   }
-
-    public void Credits()
+    void Awake()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    public void QuitGame ()
-   {
-       Debug.Log("QUIT");
-       Application.Quit();
-   }
+    public void PlayGame ()
+    {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 5);
+    }
+
+        public void Credits()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 4);
+        }
+
+        public void QuitGame ()
+    {
+        Debug.Log("QUIT");
+        Application.Quit();
+    }
         
 }

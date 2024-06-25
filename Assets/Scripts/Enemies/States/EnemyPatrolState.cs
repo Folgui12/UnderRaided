@@ -6,7 +6,8 @@ public class EnemyPatrolState<T> : State<T>
 {
     private BaseEnemyModel _model;
     private BaseEnemyView _view;
-    private EnemyPatrolController _controller;
+    private BaseEnemyController _controller; 
+    private EnemyPatrolController _pController;
     private ObstacleAvoidance _obs;
 
     private bool _isFinishPath = false;
@@ -14,11 +15,12 @@ public class EnemyPatrolState<T> : State<T>
     int _nextPoint = 0;
 
 
-    public EnemyPatrolState(BaseEnemyModel model, BaseEnemyView view, EnemyPatrolController controller, ObstacleAvoidance obs)
+    public EnemyPatrolState(BaseEnemyModel model, BaseEnemyView view, BaseEnemyController controller, EnemyPatrolController pController, ObstacleAvoidance obs)
     {
         _model = model;
         _view = view;
-        _controller = controller; 
+        _pController = pController; 
+        _controller = controller;
         _obs = obs;
     }
 
@@ -29,7 +31,12 @@ public class EnemyPatrolState<T> : State<T>
         base.Enter();
         _view.StartWalking();
         _view.ChangeNoiseToWalk();
-        _controller.RunAStarPlus();
+        _pController.RunAStarPlus();
+
+        foreach (MinionModel minion in _controller.myMinions)
+        {
+            minion.speed = 1f; 
+        }
     }
 
 

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinionFollowState<T> : State<T>
+public class MinionLostState<T> : State<T>
 {
     ISteering _steering;
     MinionModel _miModel;
     ObstacleAvoidance _obs;
     MinionController _controller;
-    public MinionFollowState(MinionModel model, MinionController controller,ISteering steering, ObstacleAvoidance obs)
+    public MinionLostState(MinionModel model, MinionController controller,ISteering steering, ObstacleAvoidance obs)
     {
         _controller = controller;
         _steering = steering;
@@ -20,8 +20,8 @@ public class MinionFollowState<T> : State<T>
     {
         base.Enter();
 
-        _controller.SetSteerToFollow();
-        _miModel.speed = 1f; 
+        _controller.ChangeSteerToSeek();
+        _miModel.speed = 2f;
     }
 
     public override void Execute()
@@ -32,5 +32,4 @@ public class MinionFollowState<T> : State<T>
         _miModel.Move(dir);
         _miModel.LookDir(dir);
     }
-
 }
